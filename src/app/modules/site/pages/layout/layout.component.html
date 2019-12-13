@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand col-md-3" routerLink="">Shopping App</a>
+      <form class="form-inline col-md-7">
+        <input class="form-control col-md-7" type="text" placeholder="Search" aria-label="Search">
+      </form>
+      <ul class="navbar-nav float-right text-right">
+        
+        <li class="nav-item active">
+          <a *ngIf="!user" class="nav-link" 
+          (click)="openDialog()">Login & Signup
+         </a>
+        <button *ngIf="user"  mat-button class="nav-link"  [matMenuTriggerFor]="menu">hi {{user.first_name}}</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+              <i class="material-icons md-24">face</i> Profile</button>
+          <button mat-menu-item><a (click)="logOut()">
+              <i class="material-icons md-24">power_settings_new</i> Logout </a>
+          </button>
+        </mat-menu>
+        </li>
+        <li *ngIf="user" class="nav-item active">
+          <a class="nav-link" [routerLink]="['cart']">
+            <i class="material-icons md-24">shopping_cart</i>
+          </a>
+        </li>
+       
+      </ul>
+    </nav>
+  </header>
+  <div class="margin">
+      <router-outlet></router-outlet>
+  </div>
+</div>

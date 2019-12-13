@@ -4,13 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path:  '',
-    loadChildren: () => import('./modules/user/user.module')
-    .then(mod => mod.UserModule)
-  },
-  {
-    path:  'login',
-    loadChildren: () => import('./modules/login/login.module')
-    .then(mod => mod.LoginModule)
+    loadChildren: () => import('./modules/site/site.module')
+    .then(mod => mod.SiteModule)
   },
   {
     path: 'admin',

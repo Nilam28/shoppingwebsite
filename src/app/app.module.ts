@@ -5,17 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { HttpErrorInterceptor } from './shared/interceptors/error.interceptor';
 import { AdminModule } from './modules/admin/admin.module';
-import { UserModule } from './modules/user/user.module';
+import { SiteModule } from './modules/site/site.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginModule } from './modules/login/login.module';
-import { CharlimitPipe } from './shared/pipe/charlimit.pipe';
+import { AuthService } from './shared/service/auth.service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CharlimitPipe,
   ],
   imports: [
     BrowserModule,
@@ -23,13 +23,21 @@ import { CharlimitPipe } from './shared/pipe/charlimit.pipe';
     ReactiveFormsModule,
     HttpClientModule,
     AdminModule,
-    UserModule,
-    LoginModule,
+    SiteModule,
     BrowserAnimationsModule,
   ],
-  providers:
-   [
-    
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    },
+    AuthService
   ],
   bootstrap: [AppComponent],
 })
